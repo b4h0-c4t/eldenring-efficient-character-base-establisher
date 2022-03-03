@@ -14,6 +14,6 @@ git add -A
 git commit -m 'deploy'
 
 # https://<USERNAME>.github.io/<REPO> にデプロイする場合
-git push -f git@github.com:b4h0-c4t/eldenring-efficient-character-base-establisher.git main:gh-pages
+git push -f git@github.com:b4h0-c4t/eldenring-efficient-character-base-establisher.git master:gh-pages
 
 cd -
