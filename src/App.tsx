@@ -68,6 +68,7 @@ function App() {
           <input name="arcana" type="number" defaultValue={0} onChange={(e) => setArcana(parseInt(e.target.value))} />
         </div>
         <div>Best Efficient Character Base is : { effieientCharacterBases.map((characterBase, i) => (<span>{i > 0 ? ", " : ""}{ characterBase.name }</span>)) }</div>
+        <div>Target Level : { effieientCharacterBases[0].level }</div>
       </main>
     </>
   );
