@@ -1,4 +1,4 @@
-import { BaseStatus } from "../types";
+import type { BaseStatus } from "../types";
 
 const characterBases:Array<{name: string, status: BaseStatus}>= [
     {

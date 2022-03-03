@@ -1,4 +1,4 @@
-import characterBases from "./character-bases";
+import characterBases from "../character-bases";
 
 test("Status integrity", () => {
   characterBases.forEach(characterBase => {
@@ -10,7 +10,7 @@ test("Status integrity", () => {
       + characterBase.status.dexterity
       + characterBase.status.intelligence
       + characterBase.status.faith
-      + characterBase.status.arcana
+      + characterBase.status.arcane
     expect(statusTotal - characterBase.status.level).toBe(79);
   });
 })

@@ -1,4 +1,4 @@
-import { Status } from "../types";
+import type { Status } from "../types";
 import calcCurrentLevel from "./calc-current-level";
 import characterBases from "./character-bases";
 

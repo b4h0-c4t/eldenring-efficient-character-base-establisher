@@ -1,5 +1,5 @@
-import { Status } from "../types";
-import calcCurrentLevel from "./calc-current-level";
+import type { Status } from "../../types";
+import calcCurrentLevel from "../calc-current-level";
 
 test("calc integrity", () => {
     const MOCK_STATUS: Status = {
@@ -10,7 +10,7 @@ test("calc integrity", () => {
         dexterity: 12,
         intelligence: 70,
         faith: 7,
-        arcana: 9,
+        arcane: 9,
     };
     const MOCK_LEVEL = 130;
 
