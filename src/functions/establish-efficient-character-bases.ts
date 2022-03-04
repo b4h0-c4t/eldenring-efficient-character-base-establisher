@@ -1,8 +1,8 @@
-import type { Status } from "../types";
+import type { BaseStatus, Status } from "../types";
 import calcCurrentLevel from "./calc-current-level";
-import characterBases from "./character-bases";
+import characterBases from "../definitions/character-bases";
 
-const establishEfficientCharacterBases = (status: Status): Array<{name: string; level: number}> => {
+const establishEfficientCharacterBases = (status: Status): Array<{name: string; status: BaseStatus}> => {
     const finalStatusFromCharacterBases: Array<{name: string; status:Status;}> = characterBases.map((characterBase) => ({
         name: characterBase.name,
         status: {
@@ -17,16 +17,29 @@ const establishEfficientCharacterBases = (status: Status): Array<{name: string; 
         }
     }));
 
-    const finalLevelFromCharacterBases: Array<{name: string, level: number}> = finalStatusFromCharacterBases.map((characterBase) => ({
+    const finalLevelFromCharacterBases: Array<{name: string, status: BaseStatus}> = finalStatusFromCharacterBases.map((characterBase) => ({
         name: characterBase.name,
-        level: calcCurrentLevel(characterBase.status),
+        status: {
+            level: calcCurrentLevel(characterBase.status),
+            ...characterBase.status,
+        },
     }));
 
-    let establishEfficientCharacterBase: Array<{name: string, level: number}> = [{name: "none", level: Infinity}];
+    let establishEfficientCharacterBase: Array<{name: string, status: BaseStatus}> = [{name: "none", status: {
+        level: Infinity,
+        vigor: 0,
+        mind: 0,
+        endurance: 0,
+        strength: 0,
+        dexterity: 0,
+        intelligence: 0,
+        faith: 0,
+        arcane: 0,
+    }}];
     
     finalLevelFromCharacterBases.forEach((characterBase) => {
-        if(characterBase.level === establishEfficientCharacterBase[0].level) establishEfficientCharacterBase = [...establishEfficientCharacterBase, characterBase];
-        if(characterBase.level < establishEfficientCharacterBase[0].level) establishEfficientCharacterBase = [characterBase];
+        if(characterBase.status.level === establishEfficientCharacterBase[0].status.level) establishEfficientCharacterBase = [...establishEfficientCharacterBase, characterBase];
+        if(characterBase.status.level < establishEfficientCharacterBase[0].status.level) establishEfficientCharacterBase = [characterBase];
     });
 
     return establishEfficientCharacterBase;

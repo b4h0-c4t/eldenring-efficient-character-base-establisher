@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import type { Status } from './types';
+import type { BaseStatus, Status } from './types';
 import establishEfficientCharacterBases from './functions/establish-efficient-character-bases';
 import InputForm from './components/InputForm';
+import rateOfHP from './definitions/rate-of-hp';
+import rateOfFP from './definitions/rate-of-fp';
+import rateOfStamina from './definitions/rate-of-stamina';
+import rateOfAmount from './definitions/rate-of-amount';
+import CharacterStatusView from './components/CharacterStatusView';
 
 function App() {
   const [vigor, setVigor] = useState(0);
@@ -12,9 +17,19 @@ function App() {
   const [intelligence, setIntelligence] = useState(0);
   const [faith, setFaith] = useState(0);
   const [arcane, setArcane] = useState(0);
-  const [effieientCharacterBases, setEffieientCharacterBases] = useState([{name: "", level: Infinity}]);
+  const [effieientCharacterBases, setEffieientCharacterBases] = useState([{name: "", status: {
+    level: Infinity,
+    vigor,
+    mind,
+    endurance,
+    strength,
+    dexterity,
+    intelligence,
+    faith,
+    arcane,
+  }}]);
 
-  const setValueWithGuard = (setValue: (n: number) => void): (n: number) => void => 
+  const setValueWithGuard = (setValue: (n: number) => void): (n: number) => void =>
     (n: number) => {
       if(n < 0) setValue(0);
       else if(n > 99) setValue(99);
@@ -22,7 +37,7 @@ function App() {
     };
 
   useEffect(() => {
-    const currentStatus: Status = {
+    const currentStatus: Status = ({
       vigor,
       mind,
       endurance,
@@ -31,7 +46,7 @@ function App() {
       intelligence,
       faith,
       arcane,
-    };
+    });
     
     setEffieientCharacterBases(establishEfficientCharacterBases(currentStatus));
   }, [vigor, mind, endurance, strength, dexterity, intelligence, faith, arcane]);
@@ -51,7 +66,12 @@ function App() {
         <InputForm name="Faith" value={faith} setValue={setValueWithGuard(setFaith)} ></InputForm>
         <InputForm name="Arcane" value={arcane} setValue={setValueWithGuard(setArcane)} ></InputForm>
         <div>Best Efficient Character Base is : { effieientCharacterBases.map((characterBase, i) => (<span key={characterBase.name}>{i > 0 ? ", " : ""}{ characterBase.name }</span>)) }</div>
-        <div>Target Level : { effieientCharacterBases[0].level }</div>
+        <div>Target Level : { effieientCharacterBases[0].status.level }</div>
+        {
+          effieientCharacterBases.map((effieientCharacterBase) => (
+            <CharacterStatusView key={effieientCharacterBase.name} characterBase={effieientCharacterBase} />
+          ))
+        }
       </main>
     </>
   );
