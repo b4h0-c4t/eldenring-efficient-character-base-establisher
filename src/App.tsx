@@ -18,8 +18,8 @@ function App() {
     (n: number) => {
       if(n < 0) setValue(0);
       else if(n > 99) setValue(99);
-    else setValue(n);
-  };
+      else setValue(n);
+    };
 
   useEffect(() => {
     const currentStatus: Status = {

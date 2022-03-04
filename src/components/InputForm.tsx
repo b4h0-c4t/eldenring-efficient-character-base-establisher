@@ -7,9 +7,14 @@ interface Props {
 
 const InputForm = (props: Props) => {
   const setRelativeValue = (e: React.MouseEvent, n: number) => {
-    props.setValue(props.value + n);
+    let currentValue: number;
+    if(props.value + n < 0) currentValue = 0;
+    else if(props.value + n > 99) currentValue = 99;
+    else currentValue = props.value + n;
+
     const inputElement = e.currentTarget.parentElement?.querySelector("input");
-    if(inputElement instanceof HTMLInputElement) inputElement.value = `${props.value}`;
+    if(inputElement instanceof HTMLInputElement) inputElement.value = `${currentValue}`;
+    props.setValue(props.value + n);
   }
 
   return (
